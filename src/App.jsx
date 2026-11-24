@@ -13,7 +13,7 @@ import AddMasterDistributor from './pages/AddMasterDistributor'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/primepay-dashboard">
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
