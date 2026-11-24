@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
 import Wallet from './pages/Wallet'
@@ -13,7 +13,7 @@ import AddMasterDistributor from './pages/AddMasterDistributor'
 
 export default function App() {
   return (
-    <BrowserRouter basename="/primepay-dashboard">
+    <HashRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
@@ -29,6 +29,6 @@ export default function App() {
           <Route path="/add-master-distributor" element={<AddMasterDistributor />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
