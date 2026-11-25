@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutGrid, Wallet, BarChart3, Users, Bell, HelpCircle, User, FileText,
-  LogOut, ChevronLeft, ChevronRight, X, ExternalLink, MessageCircle,
+  LogOut, ChevronLeft, ChevronRight, X, ExternalLink, MessageCircle, Menu,
 } from 'lucide-react'
 import logo from '../primepay-logo.svg'
 
@@ -20,7 +20,7 @@ const sections = [
     title: 'ACCOUNT',
     items: [
       { to: '/notifications', label: 'Notifications', icon: Bell, badge: 5 },
-      { to: '/help', label: 'Help & Support', icon: HelpCircle },
+      { to: '/support', label: 'Help & Support', icon: HelpCircle },
       { to: '/profile', label: 'Profile & Settings', icon: User },
       { to: '/pdf-generation', label: 'Pdf Generation', icon: FileText },
     ],
@@ -33,14 +33,17 @@ const titles = {
   '/reports': ['Reports', 'Funds and commission statements'],
   '/master-distributors': ['Master Distributors', 'Master distributors onboarded by you'],
   '/notifications': ['Notifications', 'Updates from admin and your account'],
-  '/help': ['Help & Support', 'Raise and track issues with your transactions'],
+  '/support': ['Help & Support', 'Raise and track issues with your transactions'],
   '/profile': ['Profile & Settings', 'Your account details and security'],
   '/pdf-generation': ['Pdf Generation', 'Generate and download PDFs'],
   '/add-master-distributor': ['Master Distributors', 'Add a new master distributor'],
+  '/wallet/withdraw-funds': ['Wallet', 'Add funds, withdraw and track commissions.'],
+  '/bill-payments/transactions': ['Bill Payments', 'View and manage bill payment transactions.'],
+  '/bill-payments': ['Bill Payments', 'Choose a bill category to continue.'],
 }
 
 export default function Layout() {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(true)
   const [banner, setBanner] = useState(true)
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -87,6 +90,9 @@ export default function Layout() {
           </div>
         )}
         <header className="topbar">
+          <button className="header-menu" onClick={() => setCollapsed(!collapsed)} aria-label="Toggle menu">
+            <Menu size={24} />
+          </button>
           <div>
             <h1>{title}</h1>
             <p>{sub}</p>

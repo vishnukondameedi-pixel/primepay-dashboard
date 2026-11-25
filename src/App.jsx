@@ -10,6 +10,9 @@ import Profile from './pages/Profile'
 import PdfGeneration from './pages/PdfGeneration'
 import Login from './pages/Login'
 import AddMasterDistributor from './pages/AddMasterDistributor'
+import WithdrawFunds from './pages/WithdrawFunds'
+import BillPayments from './pages/BillPayments'
+import BillPaymentServices from './pages/BillPaymentServices'
 
 export default function App() {
   return (
@@ -20,13 +23,19 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/wallet" element={<Wallet />} />
+          <Route path="/wallet/withdraw-funds" element={<WithdrawFunds />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/master-distributors" element={<MasterDistributors />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/help" element={<Help />} />
+          <Route path="/support" element={<Help />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/pdf-generation" element={<PdfGeneration />} />
           <Route path="/add-master-distributor" element={<AddMasterDistributor />} />
+          <Route path="/withdraw-funds" element={<WithdrawFunds />} />
+          <Route path="/bill-payments" element={<BillPaymentServices />} />
+          <Route path="/bill-payments/transactions" element={<BillPayments />} />
+          <Route path="/bill-payment-services" element={<BillPaymentServices />} />
         </Route>
       </Routes>
     </HashRouter>

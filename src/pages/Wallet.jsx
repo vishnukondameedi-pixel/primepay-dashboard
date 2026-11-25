@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { RefreshCw, Plus, ChevronUp, Search, Landmark, Calendar, Download, Filter, Eye, X } from 'lucide-react'
 import { commissions } from '../data'
+import AddBankAccountModal from '../components/AddBankAccountModal'
 
 export default function Wallet() {
   const [tab, setTab] = useState('withdraw')
   const [withdrawOpen, setWithdrawOpen] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
+  const [accounts, setAccounts] = useState([])
 
   return (
     <>
@@ -39,13 +42,13 @@ export default function Wallet() {
           <div className="card panel-row" style={{ marginBottom: 20 }}>
             <div className="ic-sq" style={{ background: '#fff3e0' }}><Plus size={20} /></div>
             <h4 style={{ letterSpacing: '.01em' }}>ADD ACCOUNT</h4>
-            <button className="btn primary"><Plus size={16} /> Add Account</button>
+            <button className="btn primary" onClick={() => setAccountOpen(true)}><Plus size={16} /> Add Account</button>
           </div>
 
           <div className="card">
             <div className="panel-row" style={{ borderBottom: '1px solid var(--border)' }}>
               <div className="ic-sq"><Landmark size={20} /></div>
-              <h4>Withdraw account list <span className="count-pill">0</span></h4>
+              <h4>Withdraw account list <span className="count-pill">{accounts.length}</span></h4>
               <button className="btn icon" aria-label="Collapse"><ChevronUp size={18} /></button>
             </div>
             <div style={{ padding: '14px 26px', borderBottom: '1px solid var(--border)' }}>
@@ -54,7 +57,19 @@ export default function Wallet() {
                 <input placeholder="Search name / account no..." />
               </div>
             </div>
-            <div style={{ padding: '30px 26px' }}>No bank accounts added yet.</div>
+            {accounts.length === 0 ? (
+              <div style={{ padding: '30px 26px' }}>No bank accounts added yet.</div>
+            ) : (
+              <div style={{ padding: '14px 26px' }}>
+                {accounts.map((account, index) => (
+                  <div className="bank-account-row" key={index}>
+                    <div className="bank-account-icon"><Landmark size={20} /></div>
+                    <div><b>{account.bank}</b><span>{account.holder} ·••• {account.number.slice(-4)}</span></div>
+                    <span className="badge active">Active</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <p className="footnote">
             This site is protected by reCAPTCHA and the Google <a href="#privacy">Privacy Policy</a> and{' '}
@@ -111,6 +126,10 @@ export default function Wallet() {
                 </form>
               </div>
             </div>
+          )}
+
+          {accountOpen && (
+            <AddBankAccountModal open={accountOpen} onClose={() => setAccountOpen(false)} onAdded={(newAccount) => setAccounts((current) => [...current, newAccount])} />
           )}
         </>
       ) : (
